@@ -1,0 +1,260 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{% static 'merger.css' %}" />
+
+    <link rel="icon"
+          type="image/svg+xml"
+          href="{% static 'assets/favicon.svg' %}" />
+    <title>Video Merger</title>
+  </head>
+  <body>
+    <div class="root">
+      <header>
+        <img src="{% static 'assets/white_logo.svg' %}"
+             alt="logo"
+             onclick="window.location.href='{% url 'account:home' %}'"
+             style="cursor: pointer" />
+
+        <div class="account">
+          <h5>
+            Merger Credits Remaining: {{ request.user.subscription.merge_credits }}
+          </h5>
+          <div class="user">
+            <img src="{% static 'assets/user.svg' %}" alt="user" />
+          </div>
+        </div>
+      </header>
+      <div class="menu">
+        <ul>
+          <li onclick="window.location.href='{% url "account:manage_subscription" %}'">
+            Manage Subscription
+          </li>
+          <li onclick="window.location.href='{% url "hooks:upload" %}'">Create Hooks</li>
+          <li>
+            Credit Left <span>{{ request.user.subscription.merge_credits }}</span>
+          </li>
+          <li onclick="window.location.href='{% url "account:logout" %}'">Logout</li>
+        </ul>
+      </div>
+      <div class="content">
+        <div class="video_manager">
+          <h1>Video Merger</h1>
+          <form id="uploadForm"
+                class="upload_files"
+                action="{% url 'merger:upload_files' %}"
+                method="post"
+                enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input_block">
+              <div class="upload_file_wrapper">
+                <h4>
+                  Upload Your Hooks: <span>(Maximum 10)</span>
+                </h4>
+                <label for="short_videos">
+                  <span class="button">
+                    <img src="{% static 'assets/upload_gray.svg' %}" alt="upload" />
+                    Choose file
+                  </span>
+                </label>
+                <input id="short_videos"
+                       name="short_videos"
+                       type="file"
+                       accept="video/mp4,video/x-m4v,video/*"
+                       multiple
+                       required />
+                <p class="short-vid-info"
+                   style="font-family: 'Plus Jakarta Sans', sans-serif">
+                  <span id="uploadedCount">Uploaded: 0</span>
+                  <span id="remainingCount">Remaining: 10</span>
+                </p>
+                <p id="error-message">
+                  You can only upload a maximum of 10 Hooks. refresh and try again.
+                </p>
+              </div>
+
+              <div class="upload_file_wrapper">
+                <h4>
+                  Upload Your Large Video: <span>(Maximum 1)</span>
+                </h4>
+                <label id="largeVideoLabel" for="large_videos">
+                  <span class="button">
+                    <img src="{% static 'assets/upload_gray.svg' %}" alt="upload" />
+                    Choose file
+                  </span>
+                </label>
+                <input id="large_videos"
+                       name="large_videos"
+                       type="file"
+                       accept="video/mp4,video/x-m4v,video/*"
+                       required />
+                <p id="largeVideoName"
+                   style="font-family: 'Plus Jakarta Sans', sans-serif">
+                  No large video uploaded
+                </p>
+                <p id="largeVideoSizeError"
+                   style="font-family: 'Plus Jakarta Sans', sans-serif;
+                          margin-bottom: 10px;
+                          color: #ee6e68;
+                          font-size: small;
+                          display: none">
+                  Max File Size For Large Video Is 1 GB
+                </p>
+              </div>
+            </div>
+
+            <!-- Progress bar -->
+            <div id="progress-container" style="display: none;">
+              <div class="progress-bar-text">
+                <span class="uploading-text">Uploading</span>
+                <span id="progress-percentage" class="percentage-text">0%</span>
+              </div>
+              <div id="progress-bar">
+                <div id="progress"></div>
+              </div>
+            </div>
+
+            <button id="submit" type="submit">Upload and Process</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      const user = document.querySelector(".user");
+      const menu = document.querySelector(".menu");
+      user.addEventListener("click", function() {
+        if (menu.style.display === "block") {
+          menu.style.display = "none"
+        } else {
+          menu.style.display = "block"
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const shortVideosInput = document.getElementById("short_videos");
+        const selectedFiles = [];
+
+        shortVideosInput.addEventListener('change', function(event) {
+          for (const file of event.target.files) {
+            selectedFiles.push(file);
+          }
+
+          const dataTransfer = new DataTransfer();
+          for (const file of selectedFiles) {
+            dataTransfer.items.add(file);
+          }
+
+          shortVideosInput.files = dataTransfer.files;
+        });
+      });
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const submitButton = document.getElementById("submit")
+        const shortVideosInput = document.getElementById("short_videos");
+        const largeVideoInput = document.getElementById("large_video");
+        const errorMessage = document.getElementById('error-message');
+
+        const uploadedCountDisplay = document.getElementById('uploadedCount');
+        const remainingCountDisplay = document.getElementById('remainingCount');
+
+        let selectedShortVideos = [];
+
+        shortVideosInput.addEventListener('change', function(event) {
+          selectedShortVideos = Array.from(event.target.files);
+
+          if (selectedShortVideos.length > 10) {
+            shortVideosInput.disabled = true;
+            submitButton.disabled = true;
+            errorMessage.style.display = 'block';
+          } else {
+            shortVideosInput.disabled = false;
+            submitButton.disabled = false;
+            errorMessage.style.display = 'none';
+          }
+
+          updateCountDisplay();
+        });
+
+
+        function updateCountDisplay() {
+          const uploaded = selectedShortVideos.length;
+          const remaining = 10 - uploaded;
+
+          uploadedCountDisplay.textContent = `Uploaded: ${uploaded}`;
+          remainingCountDisplay.textContent = `Remaining: ${remaining}`;
+        }
+      });
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const largeVideoInput = document.getElementById("large_videos");
+        const largeVideoNameDisplay = document.getElementById('largeVideoName');
+
+        largeVideoInput.addEventListener('change', function(event) {
+          const largeVideoFile = event.target.files[0];
+          if (largeVideoFile) {
+            largeVideoNameDisplay.textContent = `Selected: ${largeVideoFile.name}`;
+
+            if (largeVideoFile.size > 1 * 1024 * 1024 * 1024) {
+              document.querySelector('#largeVideoSizeError').style.display = 'block';
+              document.querySelector('#largeVideoLabel').style.border = '1px dashed #ee6e68';
+            } else {
+              document.querySelector('#largeVideoSizeError').style.display = 'none';
+              document.querySelector('#largeVideoLabel').style.border = '1px dashed #19191980';
+            }
+          } else {
+            largeVideoNameDisplay.textContent = "No large video uploaded";
+          }
+        });
+      });
+    </script>
+
+    <script>
+      document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        if (document.getElementById("large_videos").files.length <= 0 ||
+          document.getElementById("large_videos").files[0].size > 1 * 1024 * 1024 * 1024) {
+          document.querySelector('#largeVideoSizeError').style.display = 'block';
+          document.querySelector('#largeVideoLabel').style.border = '1px dashed #ee6e68';
+          return false;
+        }
+
+        const formData = new FormData(this);
+
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'json';
+        xhr.open('POST', this.action, true);
+
+        document.getElementById('progress-container').style.display = 'block';
+
+        xhr.upload.onprogress = function(event) {
+          if (event.lengthComputable) {
+            const percentComplete = Math.round((event.loaded / event.total) * 100);
+            document.getElementById('progress').style.width = percentComplete + '%';
+            document.getElementById('progress-percentage').innerText = percentComplete + '%';
+          }
+        };
+
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            window.location.href = "{% url 'merger:processing' task_id='0' %}".replace('0', xhr.response.taskId);
+          } else {
+            alert('An error occurred while uploading the file.');
+          }
+        };
+
+        xhr.send(formData);
+      });
+    </script>
+  </body>
+</html>

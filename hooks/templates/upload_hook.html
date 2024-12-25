@@ -1,0 +1,889 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+          rel="stylesheet" />
+
+    <link rel="stylesheet" href="{% static 'input.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'responsive.css' %}" />
+
+    <link rel="icon"
+          type="image/svg+xml"
+          href="{% static 'assets/favicon.svg' %}" />
+    <title>HooksMaster.io</title>
+
+    <style>
+      .color-value {
+        background-color: transparent;
+        border: none;
+        width: 100%;
+        outline: none;
+      }
+
+      [data-tooltip] {
+        cursor: not-allowed;
+        color: #999999;
+        position: relative;
+      }
+
+      [data-tooltip]:after {
+        content: attr(data-tooltip);
+        padding: 6px 8px;
+        position: absolute;
+        left: 50%;
+        bottom: 100%;
+        transform: translateX(-50%);
+        background-color: #000000aa;
+        width: max-content;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transition: all 0.2s ease-out;
+        color: #ffffff;
+        border-radius: 6px;
+      }
+
+      [data-tooltip]:hover:after {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .credit-score {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+
+      .content {
+        width: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      .block_a,
+      .block_b {
+        flex: 1 1 45%;
+        /* Grow and shrink, but with a base of 45% */
+
+      }
+
+      .display.preview .head h1 #text {
+        line-height: 1.25em;
+        font-size: 36px;
+        padding-left: 52px;
+        padding-right: 52px;
+      }
+
+      .options {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        /* Automatically wrap */
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="root">
+      <header class="admin-header">
+        <div class="container">
+          <div class="header-two">
+            <div class="hm-logo text-center">
+              <img src="{% static 'assets/white_logo.svg' %}"
+                   alt="VSL Logo"
+                   onclick="window.location.href='{% url 'account:home' %}'"
+                   style="cursor: pointer" />
+            </div>
+            <div class="header-profile">
+              <div class="credit-score">
+                <span>Credits Remaining:</span> <span>{{ request.user.subscription.hooks }}</span>
+              </div>
+              <a href="#!" class="profile-icn">
+                <img src="{% static 'assets/user.svg' %}" alt="User Profile" />
+              </a>
+            </div>
+            <div class="profile-dialog">
+              <div class="user">
+                <h4>{{ request.user.first_name }}</h4>
+                <p>{{ request.user.email }}</p>
+              </div>
+              <div class="buttons">
+                <button onclick="window.location.href='{% url "account:manage_subscription" %}'">
+                  Manage Subscription
+                </button>
+                {% if request.user.subscription.plan.name|lower == 'free' %}
+                  <button data-tooltip="Only Available On Paid Plans"
+                          style="cursor: not-allowed;
+                                 color: #999999">Go To Video Merger</button>
+                {% else %}
+                  <button onclick="window.location.href='{% url "merger:index" %}'">
+                    Go To Video Merger
+                  </button>
+                {% endif %}
+                <button>
+                  Credit left <span>{{ request.user.subscription.hooks }}</span>
+                </button>
+                <button>Affiliate</button>
+                <button onclick="window.location.href='{% url "account:logout" %}'">
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="content">
+        <form class="block_a"
+              id="hooksForm"
+              action="{% url 'hooks:upload' %}"
+              method="post"
+              enctype="multipart/form-data">
+
+          <h1>Upload and customize</h1>
+          <div class="box">
+            <div class="wrapper" style="margin-top: 0;">
+              <label for="dimension">Hooks Dimension:</label>
+              <div class="options">
+                <div class="option-box"
+                     data-resolution="option1"
+                     style="display: flex;
+                            justify-content: center;
+                            background: white;
+                            text-align: center;
+                            border-radius: 8px;
+                            border: 1px solid #485AFF;
+                            padding: 12px 8px;
+                            cursor: pointer">
+                  <input type="radio" name="resolution" value="option1" checked hidden />
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="font-size: 18px;
+                                font-weight: 500;
+                                line-height: 21.94px;
+                                letter-spacing: -0.03em;
+                                text-align: center;
+                                margin-bottom: 30px">Square</div>
+                    <div style="height: 100px;
+                                width: 100px;
+                                background: #D9D9D9;
+                                border-radius: 8px;
+                                margin-bottom: 8px;
+                                border: 2px dashed"></div>
+                    <div class="text"
+                         style="font-size: 16px;
+                                font-weight: 400;
+                                line-height: 21.79px;
+                                letter-spacing: -0.03em;
+                                text-align: center;
+                                margin-bottom: 12px">1:1</div>
+                    <div class="circle-outer"
+                         style="width: 15px;
+                                height: 15px;
+                                border-radius: 90px;
+                                border: 3px solid #485AFF;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                padding: 5px;
+                                box-sizing: unset">
+                      <div class="circle-inner"
+                           style="width: 100%;
+                                  height: 100%;
+                                  border-radius: 90px;
+                                  background: #485AFF"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Option 2: TikTok/Short -->
+                <div class="option-box"
+                     data-resolution="option2"
+                     style="display: flex;
+                            justify-content: center;
+                            background: white;
+                            text-align: center;
+                            border-radius: 8px;
+                            border: 1px solid #88888877;
+                            padding: 12px 8px;
+                            cursor: pointer">
+                  <input type="radio" name="resolution" value="option2" hidden />
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="font-size: 18px;
+                                font-weight: 500;
+                                line-height: 21.94px;
+                                letter-spacing: -0.03em;
+                                text-align: center;
+                                margin-bottom: 30px">Portrait</div>
+                    <div style="height: 100px;
+                                width: 80px;
+                                background: #D9D9D9;
+                                border-radius: 8px;
+                                margin-bottom: 8px;
+                                border: 2px dashed"></div>
+                    <div class="text"
+                         style="font-size: 16px;
+                                font-weight: 400;
+                                line-height: 21.79px;
+                                letter-spacing: -0.03em;
+                                text-align: center;
+                                margin-bottom: 12px">4:5</div>
+                    <div class="circle-outer"
+                         style="width: 15px;
+                                height: 15px;
+                                border-radius: 90px;
+                                border: 3px solid #D9D9D9;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                padding: 5px;
+                                box-sizing: unset">
+                      <div class="circle-inner"
+                           style="width: 100%;
+                                  height: 100%;
+                                  border-radius: 90px;
+                                  background: #D9D9D9"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Option 3: YouTube -->
+                <div class="option-box"
+                     data-resolution="option3"
+                     style="display: flex;
+                            justify-content: center;
+                            background: white;
+                            text-align: center;
+                            border-radius: 8px;
+                            border: 1px solid #88888877;
+                            padding: 12px 8px;
+                            cursor: pointer">
+                  <input type="radio" name="resolution" value="option3" hidden />
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="font-size: 18px;
+                                font-weight: 500;
+                                line-height: 21.94px;
+                                letter-spacing: -0.03em;
+                                text-align: center;
+                                margin-bottom: 30px">TikTok/Reels</div>
+                    <div style="height: 100px;
+                                width: 56.25px;
+                                background: #D9D9D9;
+                                border-radius: 8px;
+                                margin-bottom: 8px;
+                                border: 2px dashed"></div>
+                    <div class="text"
+                         style="font-size: 16px;
+                                font-weight: 400;
+                                line-height: 21.79px;
+                                letter-spacing: -0.03em;
+                                text-align: center;
+                                margin-bottom: 12px">9:16</div>
+                    <div class="circle-outer"
+                         style="width: 15px;
+                                height: 15px;
+                                border-radius: 90px;
+                                border: 3px solid #D9D9D9;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                padding: 5px;
+                                box-sizing: unset">
+                      <div class="circle-inner"
+                           style="width: 100%;
+                                  height: 100%;
+                                  border-radius: 90px;
+                                  background: #D9D9D9"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="option-box"
+                     data-resolution="option4"
+                     style="display: flex;
+                            justify-content: center;
+                            background: white;
+                            text-align: center;
+                            border-radius: 8px;
+                            border: 1px solid #88888877;
+                            padding: 12px 8px;
+                            cursor: pointer">
+                  <input type="radio" name="resolution" value="option4" hidden />
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="font-size: 18px;
+                                font-weight: 500;
+                                line-height: 21.94px;
+                                letter-spacing: -0.03em;
+                                text-align: center;
+                                margin-bottom: 30px">YouTube</div>
+                    <div style="height: 100px;
+                                width: 155px;
+                                background: #D9D9D9;
+                                border-radius: 8px;
+                                margin-bottom: 8px;
+                                border: 2px dashed"></div>
+                    <div class="text"
+                         style="font-size: 16px;
+                                font-weight: 400;
+                                line-height: 21.79px;
+                                letter-spacing: -0.03em;
+                                text-align: center;
+                                margin-bottom: 12px">16:9</div>
+                    <div class="circle-outer"
+                         style="width: 15px;
+                                height: 15px;
+                                border-radius: 90px;
+                                border: 3px solid #D9D9D9;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                padding: 5px;
+                                box-sizing: unset">
+                      <div class="circle-inner"
+                           style="width: 100%;
+                                  height: 100%;
+                                  border-radius: 90px;
+                                  background: #D9D9D9"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="upload_file_wrapper" id="hooksContentWrapper">
+              <h4>Hooks Content:</h4>
+
+              <label for="hooks" id="hookContentLabel">
+                <img src="{% static 'assets/upload_large.svg' %}" alt="upload" />
+                <span class="button">
+                  <span>Click to upload</span> or drag and drop
+                </span>
+                <span class="selected_file">No file chosen</span>
+              </label>
+              {{ form.hooks_content }}
+              <span id="fileError" class="error"></span>
+            </div>
+
+            <div class="wrapper">
+              <label for="google_link">Google Sheets Link:</label>
+              {{ form.google_sheets_link }}
+              <span id="googleLinkError" class='error'></span> <!-- Error message -->
+            </div>
+
+            <div class="wrapper">
+              <label for="api_key">Eleven Labs API Key:</label>
+              {{ form.eleven_labs_api_key }}
+              <span id="keyError" class="error"></span>
+            </div>
+
+            <div class="wrapper">
+              <label for="voice_id">Voice ID:</label>
+              {{ form.voice_id }}
+              <span id="apiKeyError" class='error'></span> <!-- Error message -->
+            </div>
+          </div>
+
+          <h2>Customize your hook design</h2>
+          <div class="box">
+            <div class="color-picker-container">
+              <label for="box_color">Main box color (Hex):</label>
+              <div class="color-input-wrapper">
+                {{ form.box_color }}
+                <input class="color-value" id="boxColorText" type="text" value="#485AFF" />
+              </div>
+              <span id="boxColorError" class="error"></span>
+            </div>
+            <div class="color-picker-container">
+              <label for="fontColor">Font color (Hex):</label>
+              <div class="color-input-wrapper">
+                {{ form.font_color }}
+                <input class="color-value" id="fontColorText" type="text" value="#ffffff" />
+              </div>
+              <span id="fontColorError" class="error"></span>
+            </div>
+          </div>
+          {% csrf_token %}
+          <button type="submit" id="submit" style="max-width: unset;">
+            Create
+            <img src="{% static 'assets/arrow_right_dark.svg' %}" alt="arrow" />
+          </button>
+        </form>
+        <div class="block_b">
+          <h1>Tutorial</h1>
+          <div class="display tutorial">
+            <img class="play" src="{% static 'assets/play.svg' %}" alt="play" />
+          </div>
+          <hr />
+          <h1>Preview</h1>
+          <div class="display preview">
+            <div id="tiktokBar"
+                 style="position: absolute;
+                        width: 100%;
+                        left: 0;
+                        top: 0;
+                        display: none">
+              <img style="width: 100%" src="{% static 'assets/tiktok_bar.png' %}" alt="" />
+            </div>
+            <div class="head" id="textbg" style="padding: 5px;">
+              <h1 id="text">This Is How Your Hook Text Will Look Like On The Video</h1>
+            </div>
+            <div class="info">
+              {% if hook.hooks_content %}
+                <video controls>
+                  <source src="{{ hook.hooks_content }}" type="video/mp4" />
+                </video>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'control.js' %}"></script>
+
+    <script>
+      let isValidVoiceId = false;
+      let isValidApiKey = false;
+      let isValidSpreadSheetLink = false;
+      let isValidHooksContent = false;
+
+      async function validateVoiceId() {
+        if (document.querySelector('#voice_id').value.trim() === '') {
+          document.querySelector('#apiKeyError').textContent = 'Voice ID Is Required';
+          document.querySelector('#voice_id').style.border = '1px solid #ee6e68';
+          isValidVoiceId = false;
+        } else {
+          document.querySelector('#apiKeyError').textContent = '';
+          document.querySelector('#voice_id').style.border = '1px solid #19191980';
+
+          isValidVoiceId = await validateVoiceIdAndApiKey();
+        }
+      }
+
+      async function validateApiKey() {
+        if (document.querySelector('#api_key').value.trim() === '') {
+          document.querySelector('#keyError').textContent = 'Eleven Labs API Key Is Required';
+          document.querySelector('#api_key').style.border = '1px solid #ee6e68';
+          isValidApiKey = false;
+        } else {
+          document.querySelector('#keyError').textContent = '';
+          document.querySelector('#api_key').style.border = '1px solid #19191980';
+
+          isValidApiKey = await validateVoiceIdAndApiKey();
+        }
+      }
+
+      async function validateVoiceIdAndApiKey() {
+        const apiKey = document.querySelector('#api_key').value.trim();
+        const voiceId = document.querySelector('#voice_id').value.trim();
+
+        if (apiKey === '' || voiceId === '') {
+          return false;
+        }
+
+        const formData = new FormData();
+        formData.append('eleven_labs_api_key', apiKey);
+        formData.append('voice_id', voiceId);
+
+        const res = await fetch("{% url 'hooks:validate_api_key' %}", {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+          },
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        if (data.valid) {
+          document.querySelector('#keyError').textContent = '';
+          document.querySelector('#api_key').style.border = '1px solid #19191980';
+
+          document.querySelector('#apiKeyError').textContent = '';
+          document.querySelector('#voice_id').style.border = '1px solid #19191980';
+
+          return true;
+        } else {
+          if (data.error === 'quota_exceeded') {
+            document.querySelector('#keyError').textContent = 'Insufficient Eleven Labs Quota';
+            document.querySelector('#api_key').style.border = '1px solid #ee6e68';
+          } else if (data.error === 'invalid_api_key' || data.error === 'api_key_not_verifiable') {
+            document.querySelector('#keyError').textContent = 'Invalid API Key';
+            document.querySelector('#api_key').style.border = '1px solid #ee6e68';
+          } else if (data.error === 'detected_unusual_activity') {
+            document.querySelector('#keyError').textContent = 'Error: Eleven Labs Detected Unusual Activity, Disabling Free Tier Usage';
+            document.querySelector('#api_key').style.border = '1px solid #ee6e68';
+          } else if (data.error === 'voice_not_found') {
+            document.querySelector('#keyError').textContent = '';
+            document.querySelector('#api_key').style.border = '1px solid #19191980';
+
+            document.querySelector('#apiKeyError').textContent = 'Invalid Voice ID';
+            document.querySelector('#voice_id').style.border = '1px solid #ee6e68';
+          } else {
+            document.querySelector('#keyError').textContent = 'Unexpected Error Happened: ' + data.message;
+            document.querySelector('#api_key').style.border = '1px solid #ee6e68';
+
+            document.querySelector('#apiKeyError').textContent = 'Unexpected Error Happened: ' + data.message;
+            document.querySelector('#voice_id').style.border = '1px solid #ee6e68';
+          }
+
+          return false;
+        }
+      }
+
+      async function validateGoogleSheetLink() {
+        if (document.querySelector('#google_link').value.trim() === '') {
+          document.querySelector('#googleLinkError').textContent = 'Google Sheets Link Is Required';
+          document.querySelector('#google_link').style.border = '1px solid #ee6e68';
+
+          isValidSpreadSheetLink = false;
+        } else {
+          let googleSheetLink = document.querySelector('#google_link').value.trim();
+
+          const formData = new FormData();
+          formData.append('google_sheets_link', googleSheetLink);
+
+          const res = await fetch("{% url 'hooks:validate_google_sheet_link' %}", {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: formData,
+          });
+
+          const data = await res.json();
+
+          if (data.valid) {
+            document.querySelector('#googleLinkError').textContent = '';
+            document.querySelector('#google_link').style.border = '1px solid #19191980';
+            isValidSpreadSheetLink = true;
+          } else {
+            document.querySelector('#googleLinkError').textContent = data.error;
+            document.querySelector('#google_link').style.border = '1px solid #ee6e68';
+            isValidSpreadSheetLink = false;
+          }
+        }
+      }
+
+      function validateHooksContent() {
+        if (document.querySelector('#hooks').files.length <= 0) {
+          document.querySelector('#fileError').textContent = 'Hooks Content Is Required';
+          document.querySelector('#hookContentLabel').style.border = '2px dashed #ee6e68';
+          isValidHooksContent = false;
+        } else {
+          document.querySelector('#fileError').textContent = '';
+          document.querySelector('#hookContentLabel').style.border = '2px dashed #19191980';
+          isValidHooksContent = true;
+        }
+      }
+
+      let validationTimeoutIds = {};
+
+      function validateInputOnIdle(inputId, idleDelay, validationCallback) {
+        document.querySelector(`#${inputId}`).addEventListener('input', () => {
+          clearTimeout(validationTimeoutIds[inputId]);
+          validationTimeoutIds[inputId] = setTimeout(validationCallback, idleDelay);
+        });
+      }
+
+      validateInputOnIdle('voice_id', 300, validateVoiceId)
+      validateInputOnIdle('api_key', 300, validateApiKey)
+      validateInputOnIdle('google_link', 300, validateGoogleSheetLink)
+
+      document.querySelector('#hooks').addEventListener('change', validateHooksContent);
+      document.querySelector('#hooks').addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+          const fileName = e.target.files[0].name;
+          document.querySelector('.selected_file').textContent = fileName;
+        } else {
+          document.querySelector('.selected_file').textContent = 'No File Chosen';
+        }
+      });
+
+      const hooksForm = document.querySelector('#hooksForm');
+      hooksForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!isValidVoiceId) {
+          await validateVoiceId();
+        }
+
+        if (!isValidApiKey) {
+          await validateApiKey();
+        }
+
+        if (!isValidSpreadSheetLink) {
+          await validateGoogleSheetLink();
+        }
+
+        if (!isValidHooksContent) {
+          validateHooksContent();
+        }
+
+        if (isValidVoiceId && isValidApiKey && isValidSpreadSheetLink && isValidHooksContent) {
+          hooksForm.constructor.prototype.submit.call(hooksForm);
+        } else {
+          document.querySelector('#hooksContentWrapper').scrollIntoView({
+            behavior: 'smooth',
+          });
+        }
+      });
+    </script>
+
+    <script>
+      function resetAllOptions() {
+        const allBoxes = document.querySelectorAll('.option-box');
+        const allCirclesOuter = document.querySelectorAll('.circle-outer');
+        const allCirclesInner = document.querySelectorAll('.circle-inner');
+
+        allBoxes.forEach((box) => {
+          box.style.border = '1px solid #88888877';
+        });
+
+        allCirclesOuter.forEach((circleOuter) => {
+          circleOuter.style.border = '3px solid #D9D9D9';
+        });
+
+        allCirclesInner.forEach((circleInner) => {
+          circleInner.style.backgroundColor = '#D9D9D9';
+        });
+      }
+
+      function selectOption(resolution) {
+        resetAllOptions();
+
+        const selectedBox = document.querySelector(
+          `.option-box[data-resolution="${resolution}"]`,
+        );
+        const selectedCircleOuter = selectedBox.querySelector('.circle-outer');
+        const selectedCircleInner = selectedBox.querySelector('.circle-inner');
+
+        selectedBox.style.border = '1px solid #485AFF';
+        selectedCircleOuter.style.border = '3px solid #485AFF';
+        selectedCircleInner.style.backgroundColor = '#485AFF';
+
+        document.querySelector(`input[value="${resolution}"]`).checked = true;
+      }
+
+      function adjustPreviewBox(resolution) {
+        const previewDims = {
+          option1: {
+            width: 667,
+            height: 667,
+            paddingX: 52,
+            fontSize: 36,
+          },
+          option2: {
+            width: 533,
+            height: 667,
+            paddingX: 20,
+            fontSize: 33,
+          },
+          option3: {
+            width: 375,
+            height: 667,
+            paddingX: 20,
+            fontSize: 24,
+          },
+          option4: {
+            width: 667,
+            height: 375,
+            paddingX: 30,
+            fontSize: 36,
+          },
+        };
+
+        const headTag = document.querySelector('.head h1');
+        const screenWidth = window.innerWidth;
+
+        if (screenWidth <= 480) {
+          previewDims.option3.width = 280;
+          previewDims.option3.height = 500;
+          headTag.style.lineHeight = '21px';
+        } else if (screenWidth <= 768) {
+          previewDims.option3.width = 320;
+          previewDims.option3.height = 568;
+        } else {
+          previewDims.option3.width = 375;
+          previewDims.option3.height = 667;
+        }
+
+        if (screenWidth <= 480) {
+          previewDims.option1.width = 361;
+          previewDims.option1.height = 390;
+          previewDims.option2.width = 300;
+          previewDims.option2.height = 380;
+          previewDims.option4.width = 355;
+          previewDims.option4.height = 300;
+        } else if (screenWidth <= 768) {
+          previewDims.option1.width = 320;
+          previewDims.option1.height = 568;
+          previewDims.option2.width = 320;
+          previewDims.option2.height = 568;
+          previewDims.option4.width = 320;
+          previewDims.option4.height = 568;
+        } else if (screenWidth <= 912) {
+          previewDims.option4.width = 590;
+          previewDims.option4.height = 380;
+        } else if (screenWidth <= 1439) {
+          previewDims.option1.width = 450;
+          previewDims.option4.width = 450;
+          previewDims.option4.height = 439;
+        }
+
+        let fontSize = previewDims[resolution].fontSize;
+
+        if (screenWidth <= 600) {
+          fontSize = Math.floor(fontSize * 0.56);
+        } else if (screenWidth <= 650) {
+          fontSize = Math.floor(fontSize * 0.65);
+        } else if (screenWidth <= 768) {
+          fontSize = Math.floor(fontSize * 0.9);
+        } else if (screenWidth <= 1280) {
+          fontSize = Math.floor(fontSize * 0.9);
+        }
+
+        let paddingX = previewDims[resolution].paddingX;
+
+        if (screenWidth <= 480 && resolution !== 'option3') {
+          paddingX = Math.floor(paddingX * 0.4);
+        } else if (screenWidth <= 650 && resolution !== 'option3') {
+          paddingX = Math.floor(paddingX * 0.6);
+        } else if (screenWidth <= 768 && resolution !== 'option3') {
+          paddingX = Math.floor(paddingX * 0.9);
+        } else if (screenWidth <= 1280 && resolution !== 'option3') {
+          paddingX = Math.floor(paddingX * 0.9);
+        }
+
+        const previewBox = document.querySelector('.preview');
+        const textElement = document.querySelector('#text');
+        const tiktokBar = document.querySelector('#tiktokBar');
+        const head = document.querySelector('.head');
+
+
+
+        previewBox.style.width = `${previewDims[resolution].width}px`;
+        previewBox.style.height = `${previewDims[resolution].height}px`;
+        textElement.style.paddingLeft = `${paddingX}px`;
+        textElement.style.paddingRight = `${paddingX}px`;
+        previewBox.style.margin = '0 auto';
+        previewBox.style.marginBottom = '2rem';
+        textElement.style.fontSize = `${fontSize}px`;
+
+        if (resolution === 'option3') {
+          tiktokBar.style.display = 'block';
+          head.style.paddingTop = '84px';
+          if (screenWidth >= 1200) {
+            headTag.style.lineHeight = '30px';
+          }
+
+        } else {
+          tiktokBar.style.display = 'none';
+          head.style.padding = '5px';
+          if (screenWidth >= 1200) {
+            headTag.style.lineHeight = '40px';
+          }
+
+        }
+      }
+
+      document.querySelectorAll('.option-box').forEach((boxElement) => {
+        boxElement.addEventListener('click', function() {
+          const resolution = this.getAttribute('data-resolution');
+          selectOption(resolution);
+          adjustPreviewBox(resolution);
+        });
+      });
+    </script>
+
+    <script>
+      const boxColorInput = document.querySelector('#boxcolor');
+      const fontColorInput = document.querySelector('#fontcolor');
+      const boxColorTextInput = document.querySelector('#boxColorText');
+      const fontColorTextInput = document.querySelector('#fontColorText');
+
+      boxColorInput.addEventListener('input', function() {
+        if (boxColorTextInput.value !== boxColorInput.value) {
+          boxColorTextInput.value = boxColorInput.value;
+          boxColorTextInput.dispatchEvent(new Event('input'));
+        }
+      });
+
+      fontColorInput.addEventListener('input', function() {
+        if (fontColorTextInput.value !== fontColorInput.value) {
+          fontColorTextInput.value = fontColorInput.value;
+          fontColorTextInput.dispatchEvent(new Event('input'));
+        }
+      });
+
+      boxColorTextInput.addEventListener('input', function() {
+        const color = boxColorTextInput.value;
+
+        if (color === '') {
+          document.querySelector('#boxColorError').style.display = 'block';
+          document.querySelector('#boxColorError').textContent =
+            'Main Box Color Is Required';
+
+          return false;
+        }
+
+        const hexColorPattern = /^#[0-9a-fA-F]{6}$/;
+        const isValidHexColor = hexColorPattern.test(color);
+
+        if (!isValidHexColor) {
+          document.querySelector('#boxColorError').style.display = 'block';
+          document.querySelector('#boxColorError').textContent = 'Invalid Hex Color';
+
+          return false;
+        }
+
+        document.querySelector('#boxColorError').style.display = 'none';
+        document.querySelector('#boxColorError').textContent = '';
+
+        if (boxColorInput.value === color) {
+          return false;
+        }
+
+        boxColorInput.value = color;
+        boxColorInput.dispatchEvent(new Event('input'));
+      });
+
+      fontColorTextInput.addEventListener('input', function() {
+        const color = fontColorTextInput.value;
+
+        if (color === '') {
+          document.querySelector('#fontColorError').style.display = 'block';
+          document.querySelector('#fontColorError').textContent =
+            'Font Color Is Required';
+
+          return false;
+        }
+
+        const hexColorPattern = /^#[0-9a-fA-F]{6}$/;
+        const isValidHexColor = hexColorPattern.test(color);
+
+        if (!isValidHexColor) {
+          document.querySelector('#fontColorError').style.display = 'block';
+          document.querySelector('#fontColorError').textContent = 'Invalid Hex Color';
+
+          return false;
+        }
+
+        document.querySelector('#fontColorError').style.display = 'none';
+        document.querySelector('#fontColorError').textContent = '';
+
+        if (fontColorInput.value === color) {
+          return false;
+        }
+
+        fontColorInput.value = color;
+        fontColorInput.dispatchEvent(new Event('input'));
+      });
+    </script>
+  </body>
+
+</html>

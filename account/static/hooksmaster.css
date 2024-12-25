@@ -1,0 +1,653 @@
+/* Universal Reset: Removes default margin and padding from all elements */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Body Styling: Sets a default background and font */
+body {
+  font-family: 'Montserrat';
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    /* White with 20% opacity */ rgba(122, 135, 255, 0.06) 88%,
+    /* Light Blue with 6% opacity */ rgba(72, 90, 255, 0) 100%
+      /* Dark Blue with 0% opacity */
+  );
+}
+
+.admin-header {
+  background: #191919;
+  padding: 14px 44px;
+  border-bottom: 1px solid #000;
+  text-align: center;
+  height: 80px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+}
+.admin-header .profile-icn::before {
+  position: absolute;
+  content: '';
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.7);
+  top: 50%;
+  transform: translateY(-50%);
+  left: -16px;
+}
+.header-container {
+  width: 100%;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+}
+.header-two {
+  height: 50px;
+  gap: 10px;
+  /* margin-left: 1.3rem; */
+}
+.header-profile,
+.header-two {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hm-logo {
+  color: white;
+  display: flex;
+  /* margin-left: -2rem; */
+}
+.admin-header .credit-score span {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+.admin-header .profile-icn {
+  background: #c4c4c4;
+  border-radius: 50%;
+  height: 41px;
+  width: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 33px;
+  position: relative;
+}
+.profile-icn img {
+  filter: invert(100%);
+}
+@media (max-width: 700px) {
+  .credit-score {
+    display: none;
+  }
+  .admin-header {
+    padding: 14px 7px;
+  }
+  .hm-logo img {
+    width: 150px;
+  }
+  .admin-header .profile-icn {
+    margin-right: 1rem;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .admin-header {
+    height: 72px;
+    padding: 34px 108px;
+  }
+  .admin-header > img {
+    width: 243.16px;
+    height: 35px;
+  }
+  .admin-header > .account > h5 {
+    font-size: 14px;
+    line-height: 17.07px;
+    padding-right: 16px;
+    margin-right: 16px;
+  }
+  .admin-header > .account > .user {
+    width: 50px;
+    height: 50px;
+  }
+  .admin-header > img,
+  .admin-header > .account {
+    transform: scale(0.9);
+  }
+  .menu {
+    width: 333px;
+    border-radius: 8px;
+    right: 96px;
+    top: 56px;
+  }
+  .menu > ul li {
+    font-size: 20px;
+    line-height: 25.2px;
+    padding: 18px 14px;
+  }
+  .menu > ul > .name {
+    font-size: 24px;
+    line-height: 30.24px;
+    padding-bottom: 0;
+  }
+  .menu > ul > .email {
+    padding-top: 12px;
+  }
+  .menu {
+    transform: scale(0.8);
+  }
+}
+
+/* Content Container: Sets width, margin, padding, and border styling for the content section */
+.content {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  width: 1070px;
+  margin: auto;
+  margin-top: 50px;
+  padding: 15px 0px 34px 0px;
+  border-radius: 8px;
+  background-color: #fff;
+  gap: 16px;
+}
+
+.for-border {
+  width: 95.5%;
+  margin: 0 auto;
+}
+
+.for-border .plan p {
+  margin-bottom: 0px;
+}
+
+/* Text Flexbox: Aligns text content with space between the elements */
+.text {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.486);
+  padding-left: 24px;
+  padding-right: 24px;
+  align-items: center;
+}
+
+.sub-p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* Bill Button: Adds styles for the bill info button */
+.bill {
+  text-transform: capitalize;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  border-radius: 66px;
+  cursor: pointer;
+  transition: all ease-in 0.2s;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 1);
+}
+
+/* Hover Effect for Bill Button: Changes background and text color on hover */
+.bill:hover {
+  background-color: rgba(72, 90, 255, 1);
+  color: #fff;
+}
+
+/* Plan Section: Sets layout and baseline alignment for the subscription plans */
+.plan {
+  display: flex;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.486);
+  text-transform: capitalize;
+  padding: 14px;
+  height: 74px;
+  align-items: center;
+  margin-bottom: 0px;
+}
+
+/* Plan Text Spacing: Adds margin between text elements inside the plan section */
+.plan p {
+  margin-right: 24px;
+}
+
+.current-text {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* Plan Button: Basic styles for the plan button */
+.plan .btn {
+  background-color: #cccccc;
+  border-radius: 30px;
+  text-transform: capitalize;
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+}
+
+/* Subscription Status Styling: Sets styles for the subscription status */
+.subs {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.486);
+  height: 74px;
+}
+
+.sub-text {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* Active Subscription Styling: Adds background color, border radius, and padding to the active status */
+.act {
+  background-color: #41ff714d;
+  border-radius: 30px;
+  text-transform: capitalize;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #000000;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Credit Section Text: Applies capitalization to the credit section text */
+.credit p {
+  text-transform: capitalize;
+}
+
+.cr-usage {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.credit {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.486);
+  padding: 10px 0px 20px 10px;
+  height: 130px;
+  gap: 16px;
+}
+
+.credit-text {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.credit-text p {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 13px;
+}
+
+.bar {
+  width: 100%;
+  height: 18px;
+  background-color: rgba(217, 217, 217, 1);
+  border-radius: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 44%;
+  background-color: rgba(72, 90, 255, 1);
+  border-radius: 60px;
+}
+
+/* Secondary Main Section: Adjusts margins and width for the section containing additional content */
+.second-main {
+  width: 1150px;
+  margin: auto;
+  /* margin-bottom: 2rem; */
+}
+
+/* Heading Style: Centers the heading and adds padding and font size */
+.heading {
+  display: flex;
+  justify-content: center;
+  font-size: 31.23px;
+  font-weight: 700;
+  line-height: 43.8px;
+  color: rgba(0, 0, 0, 1);
+  margin-top: 38px;
+}
+
+.heading p {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Text inside Second Main Section: Sets width and margin for paragraphs */
+.second-main p {
+  max-width: 779px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Montserrat';
+  font-size: 13.5px;
+  font-weight: 400;
+  text-transform: capitalize;
+  line-height: 21.6px;
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 22px;
+}
+
+/* Credit Purchase Box: Centers and styles the credit purchase input and button */
+.credit-box {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.box-cont {
+  background-color: #fff;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  max-width: 347px;
+  padding: 18px 32px;
+  border-radius: 8px;
+}
+
+/* Input Field Styles: Adds padding, border color, and radius for the input fields inside credit purchase box */
+.box-cont input {
+  border-radius: 4px;
+  border: 1px solid rgba(227, 227, 227, 1);
+  padding: 8px 24px;
+  width: 100%;
+  margin-bottom: 1rem;
+  color: rgba(227, 227, 227, 1);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+/* Credit Box Heading Style: Applies color, bold font, and line height to the heading */
+.cr {
+  color: rgba(72, 90, 255, 1);
+  font-weight: bold;
+  line-height: 2.2;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+/* Purchase Button Styles: Defines basic styles for the purchase button */
+.credit-box button {
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  color: #ffffff;
+  background-color: rgba(72, 90, 255, 1);
+  padding: 7px 24px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  transition: all ease-in 0.2s;
+  /* border: 1px solid rgba(0, 0, 0, 0.5); */
+}
+
+.dollar {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 14px;
+}
+
+/* Purchase Button Hover: Changes background color on hover */
+.credit-box button:hover {
+  background-color: rgb(20, 42, 241);
+}
+
+/* Main Heading Style: Centers the main heading for the plans section */
+.main-head {
+  display: flex;
+  justify-content: center;
+  text-transform: capitalize;
+  margin-top: 3rem;
+}
+
+.main-head h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 39px;
+  font-weight: 700;
+  line-height: 66px;
+  color: rgba(0, 0, 0, 1);
+}
+
+/* Plans Grid Layout: Sets up a three-column grid for the plans section */
+.plans {
+  display: grid;
+  grid-template-columns: repeat(3, 324px);
+  justify-content: center;
+  margin-bottom: 5rem;
+  gap: 18px;
+  margin-top: 3rem;
+  max-width: 1704px;
+  height: 342px;
+}
+
+/* Plan Box Style: Basic styles for each plan box */
+.box {
+  background-color: #fff;
+  padding: 28px 35px;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 6px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 1);
+  border-left: 1px solid rgba(0, 0, 0, 1);
+  border-right: 4px solid rgba(0, 0, 0, 1);
+  border-bottom: 5px solid rgba(0, 0, 0, 1);
+  width: 328px;
+  height: 289px;
+  gap: 29px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Plan Box Heading: Styles the heading inside each plan box */
+.box-head {
+  color: rgba(72, 90, 255, 1);
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.box-head2 {
+  color: white;
+}
+
+/* Text inside Plan Boxes: Sets width and capitalization for plan descriptions */
+.box p {
+  text-transform: capitalize;
+  width: 100%;
+}
+
+.box-head p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.p-excl {
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: lowercase;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+#p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 42px;
+}
+
+.box p {
+  margin-bottom: 0.6787rem;
+}
+
+/* Price Display: Aligns price text and icons inside plan boxes */
+.price {
+  display: flex;
+  align-items: last baseline;
+  justify-content: center;
+}
+
+/* Price Text Styling: Aligns price span to the bottom */
+.price span {
+  display: flex;
+  align-items: self-end;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 10px;
+  text-align: center;
+  text-transform: lowercase;
+}
+
+.pb {
+  color: rgba(0, 0, 0, 1);
+}
+
+.i-blue {
+  color: rgba(72, 90, 255, 1);
+}
+
+.price h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.pro h1 {
+  color: white;
+}
+
+.p-cent {
+  color: rgba(154, 154, 154);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: lowercase;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Plan Icon Styling: Colors and spaces icons in plan descriptions */
+i {
+  color: rgba(72, 90, 255, 1);
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+/* Button Styling inside Plan Boxes: Styles and adds hover effects to buttons */
+.box button {
+  border: 1px solid rgba(25, 25, 25, 1);
+  border-bottom: 4px solid rgba(25, 25, 25, 1);
+  border-right: 4px solid rgba(25, 25, 25, 1);
+  border-left: 2px solid rgba(25, 25, 25, 1);
+  border-radius: 50px;
+  width: 100%;
+  color: rgba(25, 25, 25, 1);
+  background-color: #fff;
+  padding: 12px 7px;
+  text-transform: capitalize;
+  font-weight: 600;
+  cursor: pointer;
+  /* margin-bottom: 0.67rem; */
+  transition: all ease-in 0.3s;
+  font-size: 16px;
+}
+
+.fa-check2 {
+  color: white;
+}
+
+.fa-check {
+  font-size: 15px;
+}
+
+.excl {
+  background-color: rgba(72, 90, 255, 1);
+  color: white;
+}
+
+/* Upgrade Button: Special styling for the upgrade button */
+#up {
+  border: 1px solid rgba(25, 25, 25, 1);
+  border-bottom: 5px solid rgba(25, 25, 25, 1);
+  border-right: 5px solid rgba(25, 25, 25, 1);
+  border-left: 2px solid rgba(25, 25, 25, 1);
+  border-radius: 50px;
+  background-color: white;
+  color: rgba(25, 25, 25, 1);
+  transition: all ease-in 0.2s;
+}
+
+/* Hover Effect for Upgrade Button: Changes background color on hover */
+#up:hover {
+  background-color: rgba(72, 90, 255, 1);
+  color: white;
+}
+
+/* Hover Effect for Other Plan Buttons: Changes background color and text color on hover */
+.box button:hover {
+  background-color: rgba(72, 90, 255, 1);
+  color: white;
+}
+
+.menu {
+  /*padding: 12px 9px;*/
+  position: absolute;
+  width: 222px;
+  /*height: 232px;*/
+  border-radius: 5px;
+  top: 74px;
+  right: 72px;
+  z-index: 5;
+  box-shadow:
+    0 4px 4px -4px #0c0c0d0d,
+    0 16px 32px -4px #0c0c0d1a;
+  background: #ffffff;
+  display: none;
+}
+
+.menu > ul {
+  list-style-type: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu > ul li {
+  cursor: pointer;
+  font-family:
+    Plus Jakarta Sans,
+    sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #191919;
+  padding: 12px 9px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu > ul li:last-child {
+  border-top: 1px solid #19191933;
+}
+@media (max-width: 700px) {
+  .credit-score {
+    display: none;
+  }
+  .admin-header {
+    padding: 14px 7px;
+  }
+  .hm-logo img {
+    width: 150px;
+  }
+  .header-two .profile-dialog {
+    right: 24px !important;
+  }
+}
