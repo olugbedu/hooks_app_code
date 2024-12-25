@@ -1,0 +1,273 @@
+/* @media (min-width:1900px) {
+  .admin-header {
+    padding: 0px -6px;
+  }
+
+  .hm-logo {
+    margin-left: -12rem;
+  }
+
+  .header-profile {
+    margin-right: -12rem;
+  }
+
+  .content {
+    width: 1296px;
+    /* height: 454px; */
+}
+}
+
+@media (max-width:1600px) {
+
+  .hm-logo {
+    margin-left: -6rem;
+  }
+
+  .header-profile {
+    margin-right: -6rem;
+  }
+
+  .content {
+    width: 1296px;
+  }
+}
+
+/* @media (max-width:1555px) {
+
+  .hm-logo {
+    margin-left: -2rem;
+  }
+
+  .header-profile {
+    margin-right: -2rem;
+  }
+
+  .content {
+    width: 1296px;
+  }
+} */
+*/
+/* 
+@media (max-width:1415px) {
+
+  .hm-logo {
+    margin-left: -2rem;
+  }
+
+  .header-profile {
+    margin-right: -2rem;
+  }
+
+  .content {
+    width: 1150px;
+  }
+} */
+
+
+@media (max-width:1180px) {
+  .content {
+    width: 90%;
+  }
+
+  .second-main {
+    width: 90%;
+  }
+
+  .main-head {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .plans {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 16px;
+    width: 90%;
+  }
+}
+
+@media (max-width:960px) {
+  .content {
+    padding: 10px;
+  }
+
+  .sub-p {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .bill {
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .plan p {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .cr-usage {
+    font-size: 18px;
+    font-weight: 400;
+
+  }
+
+  .credit-text {
+    font-size: 13px;
+  }
+
+  .heading {
+    font-size: 28px;
+    font-weight: 600;
+    padding: .8rem;
+    line-height: 37.8px;
+  }
+
+  .second-main p {
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .cr {
+    color: #864AF9;
+    font-weight: bold;
+    line-height: 1.8;
+    font-size: 19px;
+    font-weight: 500;
+  }
+	.container {
+		padding-inline: 2rem;
+	}
+}
+
+@media (max-width:880px) {
+  .credit-box {
+    grid-template-columns: 400px;
+    justify-content: center;
+    width: 90%;
+  }
+
+  .admin-header .profile-icn::before {
+    display: none;
+  }
+	
+  .admin-header .profile-icn {
+    margin-left: 0px !important;
+  }
+
+  .plans {
+    justify-content: center;
+    padding: 15px;
+    grid-template-columns: 400px;
+  }
+}
+
+@media (max-width:650px) {
+  .admin-header {
+ /*   height: 181px; */
+
+  }
+
+  .admin-header .profile-icn {
+/*    flex-direction: column;*/
+  }
+
+
+  /* Flexbox Layout for Header: Aligns profile and credit score section */
+  .header-profile {
+    margin-right: -1rem;
+}
+
+  .plans {
+    margin: 0 auto;
+  }
+
+  .box {
+    width: 100%;
+    margin-bottom: 1rem;
+    height: auto;
+    padding: 14px 20px;
+  }
+
+  .credit {
+    height: auto;
+  }
+
+  .content {
+    padding: 8px;
+    /* height: auto; */
+  }
+
+  .plans {
+    grid-template-columns: auto;
+    gap: 16px;
+    width: 90%;
+  }
+
+  .sub-p {
+    font-size: 17px;
+    font-weight: 400;
+  }
+
+  .plan p {
+    font-size: 17px;
+    font-weight: 400;
+  }
+
+  .cr-usage {
+    font-size: 17px;
+    font-weight: 400;
+
+  }
+
+  .heading {
+    font-size: 26px;
+  }
+
+  .cr {
+    font-size: 17px;
+  }
+  .hm-logo { 
+	margin-left: 0px !important;
+  }
+
+  .main-head h1 {
+    font-size: 1.34rem;
+    font-weight: 600;
+  }
+}
+
+@media (max-width:420px) {
+  .bar {
+    height: 15px;
+    margin-bottom: 5px;
+  }
+
+  .credit-box {
+    grid-template-columns: auto;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .plans {
+    grid-template-columns: auto;
+    padding: 15px 30px;
+    width: 100%;
+  }
+
+  .box {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .box button {
+    padding: 6px 15px;
+  }
+
+  .box-cont {
+    padding: 15px;
+  }
+   .header-profile {
+    margin-right: -2rem;
+}
+}

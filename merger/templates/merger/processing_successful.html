@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{% static 'processing_successful.css' %}" />
+
+    <link rel="icon"
+          type="image/svg+xml"
+          href="{% static 'assets/favicon.svg' %}" />
+
+    <style>
+      [data-tooltip] {
+        cursor: not-allowed;
+        color: #999999;
+        position: relative;
+      }
+
+      [data-tooltip]:after {
+        content: attr(data-tooltip);
+        padding: 6px 8px;
+        position: absolute;
+        left: 50%;
+        bottom: 100%;
+        transform: translateX(-50%);
+        background-color: #000000aa;
+        width: max-content;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transition: all 0.2s ease-out;
+        color: #ffffff;
+        border-radius: 6px;
+      }
+
+      [data-tooltip]:hover:after {
+        opacity: 1;
+        visibility: visible;
+      }
+    </style>
+
+    <title>Merge success</title>
+  </head>
+  <body>
+    <div class="root">
+      <header>
+        <img src="{% static 'assets/white_logo.svg' %}"
+             alt="logo"
+             onclick="window.location.href='{% url "account:home" %}'"
+             style="cursor: pointer" />
+
+        <div class="account">
+          <h5>Merger Credits Remaining: {{ request.user.subscription.merge_credits }}</h5>
+          <div class="user">
+            <img src="{% static 'assets/user.svg' %}" alt="user" />
+          </div>
+        </div>
+      </header>
+      <div class="menu">
+        <ul>
+          <li onclick="window.location.href='{% url "account:manage_subscription" %}'">
+            Manage Subscription
+          </li>
+          {% if request.user.subscription.plan.name|lower == 'free' %}
+            <li data-tooltip="Only Available On Paid Plans"
+                style="cursor: not-allowed;
+                       color: #999999">Go To Video Merger</li>
+          {% else %}
+            <li onclick="window.location.href='{% url "merger:index" %}'">
+              Go To Video Merger
+            </li>
+          {% endif %}
+          <li>
+            Credit left <span>{{ request.user.subscription.merge_credits }}</span>
+          </li>
+          <li onclick="window.location.href='{% url "account:logout" %}'">Logout</li>
+        </ul>
+      </div>
+      <div class="content">
+        <div class="success_block">
+          <div class="head">
+            <a href="{% url 'merger:index' %}"
+               style="display: flex;
+                      align-items: center;
+                      margin-right: 32px">
+              <img src="{% static 'assets/arrow_left.svg' %}" alt="arrow" />
+            </a>
+            <h5>Success</h5>
+          </div>
+          {% if video_links %}
+            <ul class="info_block">
+              {% for video in video_links %}
+              <li>
+                <a href="{% url 'merger:download_output' %}?videopath={{ video.video_link }}">{{ video.file_name }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            <button onclick="window.location.href='{% url 'merger:download_zip' task_id=task_id %}'">
+              Download All as Zip
+            </button>
+
+            <a href="{% url 'hooks:upload' %}" id="merger">Create More Hooks</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <script>
+      const user = document.querySelector(".user");
+      const menu = document.querySelector(".menu");
+      user.addEventListener("click", function() {
+        if (menu.style.display === "block") {
+          menu.style.display = "none"
+        } else {
+          menu.style.display = "block"
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+.profile-dialog {
+    position: absolute;
+    top: 95%;
+    width: 220px;
+    right: -56px;
+    background-color: white;
+    padding-top: 6px;
+    color: #191919;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    font-family: Plus Jakarta Sans, sans-serif;
+    display: none;
+     z-index: 333;
+}
+
+.profile-dialog h4 {
+    font-size: 18px;
+    padding-bottom: 4px;
+    font-weight: 600;
+    padding-inline: 14px;
+    line-height: 30.24px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    margin: 0;
+     font-family: Plus Jakarta Sans, sans-serif;
+}
+.profile-dialog p {
+    font-size: 14px;
+    font-weight: 400;
+    padding-inline: 14px;
+    line-height: 25.2px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #191919b2;
+    opacity: 70%;
+    margin: 0;
+     font-family: Plus Jakarta Sans, sans-serif;
+}
+.profile-dialog .buttons {
+    margin-top: 12px;
+}
+.buttons button:nth-child(1) {
+    border-top: 1px solid gray;
+}
+
+button {
+    max-width: 547px;
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px 24px 12px 24px;
+    gap: 10px;
+    border-radius: 50px;
+    border: 1px solid hsla(0, 0%, 0%, 1);
+    color: hsla(0, 0%, 0%, 1);
+    background-color: transparent;
+    cursor: pointer;
+    opacity: 0px;
+    font-family: 'Plus Jakarta Sans';
+    font-size: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.profile-dialog button {
+    border-radius: unset;
+    border: none;
+    color: #191919;
+    padding: unset;
+    margin: unset;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  font-family: Plus Jakarta Sans, sans-serif;
+    padding-bottom: 9px;
+         padding-top: 9px;
+}
+
+.profile-dialog.show {
+    display: block;
+}
+.profile-container span {
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+}
+
+.buttons button:last-child {
+    border-top: 1px solid gray;
+}
+.profile-dialog button:hover {
+    scale: 1.01;
+    background-color: transparent;
+}
+@media (max-width: 1108px) { 
+	.header-profile {
+    margin-right: -2rem;
+}
+.hm-logo { 
+	margin-left: -2rem;
+}
+}
+
+@media (max-width: 700px) {
+	    .header-profile, .header-two {
+        flex-direction: flex;
+    }
+        .admin-header {
+        height: 80px;
+    }
+    .profile-dialog { 
+	    position: absolute;
+	    top: 95%;
+		right: 4px;
+    }
+}
+
+@media (max-width: 400px) { 
+	.credit-score {
+    display: none;
+}
+.admin-header {
+	margin-right: 0px;
+}
+}
+

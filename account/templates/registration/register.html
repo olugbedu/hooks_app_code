@@ -1,0 +1,420 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width , initial-scale= 1" />
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+    <link rel="icon"
+          type="image/svg+xml"
+          href="{% static 'assets/favicon.svg' %}" />
+    <title>HooksMaster</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      nav {
+        background-color: #022c22;
+        padding: 12px 108px 12px 108px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid lightgrey;
+      }
+
+      nav img:first-child {
+        height: 40px;
+        padding: 4px;
+      }
+
+      #profile-pic {
+        height: 50px;
+        width: 50px;
+      }
+
+      section {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .contant {
+        /*    width: 400px; */
+        margin-top: 40px;
+        padding: 30px 39px 40px 30px;
+        gap: 36px;
+        border-radius: 8px 0px 0px 0px;
+        opacity: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0px 4px 4px -4px #0c0c0d0d;
+        border-radius: 8px;
+        box-shadow: 0px 16px 32px -4px #0c0c0d1a;
+        max-width: 500px;
+        width: 100%;
+      }
+
+      .title {
+        display: flex;
+        align-items: center;
+      }
+
+      h1 {
+        font-family: Poppins;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 48px;
+        text-align: center;
+      }
+
+      .title img {
+        width: 36px;
+        height: 36px;
+      }
+
+      .video-container {
+        margin-block: 2rem;
+        width: 100%;
+        height: 321px;
+        border-radius: 16px;
+        background: #d9d9d9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      p {
+        font-family: Poppins;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 36px;
+        text-align: left;
+      }
+
+      button {
+        margin-bottom: 24px;
+        margin-top: 10px;
+        width: 100%;
+        font-size: 18px;
+        padding: 8px 24px 8px 24px;
+        gap: 10px;
+        border-radius: 8px;
+        background-color: #022c22;
+        border: 1px solid #022c22;
+        color: #bef264;
+        opacity: 1;
+        font-family: Poppins;
+        cursor: pointer;
+        margin: 40px 0 0 0;
+      }
+
+      button:hover {
+        scale: 0.98;
+      }
+
+      button img {
+        color: #bef264;
+      }
+
+      .button-container {
+        display: flex;
+        width: 100%;
+      }
+
+      .profile-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #ffffff;
+      }
+
+      .profile-container span {
+        font-family: "Montserrat", sans-serif;
+        font-size: 14px;
+      }
+
+      #profile-pic {
+        border-left: 1.5px solid grey;
+        padding-left: 12px;
+        width: 50px;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      body {
+        background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(0, 88, 67, 0.06) 88%,
+            rgba(2, 44, 34, 0) 100%);
+      }
+
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      form {
+        padding: 0;
+        margin: 0;
+        gap: 16px;
+        width: 100%;
+      }
+
+      fieldset {
+        border: none;
+        margin-bottom: 20px;
+      }
+
+      fieldset:last-of-type {
+        margin-bottom: 0;
+      }
+
+      fieldset[name^="password"] {
+        position: relative;
+      }
+
+      input {
+        width: 100%;
+        height: 47px;
+        padding: 8px 48px 8px 24px;
+        gap: 10px;
+        border-radius: 4px;
+        border: 1px solid #e3e3e3;
+        opacity: 1;
+        /* Remove opacity to make inputs visible */
+        font-family: Poppins;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 23.2px;
+        letter-spacing: 0.02em;
+        text-align: left;
+        color: #000000;
+        display: flex;
+        align-items: center;
+      }
+
+      legend {
+        font-family: Poppins;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 26.1px;
+        letter-spacing: 0.02em;
+        text-align: left;
+      }
+
+      .forgot-pass {
+        color: #022c22;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20.3px;
+        letter-spacing: 0.02em;
+        text-align: left;
+      }
+
+      .eye {
+        position: absolute;
+        right: 24px;
+        top: 50%;
+        transform: translate(50%, -50%);
+        cursor: pointer;
+      }
+
+      @media only screen and (max-width: 768px) {
+        body {
+          font-size: 14px;
+        }
+
+        main {
+          padding: 16px;
+          /* height: auto; */
+        }
+
+        .contant {
+          padding: 20px;
+          margin-top: 20px;
+          width: 100%;
+          max-width: 400px;
+          box-shadow: none;
+        }
+
+        h2 {
+          font-size: 22px;
+        }
+
+        h4 {
+          font-size: 14px;
+        }
+
+        input {
+          font-size: 14px;
+        }
+
+        button {
+          padding: 10px;
+          font-size: 16px;
+        }
+
+        .eye {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      @media only screen and (max-width: 480px) {
+        .contant {
+          padding: 16px;
+          margin-top: 20px;
+          width: 100%;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+
+        h4 {
+          font-size: 12px;
+        }
+
+        button {
+          font-size: 14px;
+          padding: 10px;
+        }
+
+        input {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <div class="contant">
+        <img src="{% static 'assets/logo.svg' %}" alt="" />
+        {% if messages %}
+          {% for message in messages %}
+            <h4 style="color: #f30101;
+                       font-weight: 400;
+                       font-size: 15px;
+                       justify-content: center;
+                       align-items: center;
+                       text-align: center">{{ message }}</h4>
+          {% endfor %}
+        {% endif %}
+
+        {% if success %}
+          <p style="text-align: center; margin-bottom: 0;">
+            Please Check Your Inbox To Verify Your Email
+          </p>
+        {% else %}
+          <form class="form" method="post">
+            <h2 style="color: #000000;
+                       font-weight: 600;
+                       font-size: 20px;
+                       justify-content: center;
+                       align-items: center;
+                       text-align: center;
+                       margin-bottom: 15px">
+              {% if session_id %}
+                Your Payment Has Been Completed Successfully
+              {% else %}
+                Get Started
+              {% endif %}
+            </h2>
+
+            <h4 style="color: #0000007f;
+                       font-weight: 400;
+                       font-size: 15px;
+                       justify-content: center;
+                       align-items: center;
+                       text-align: center;
+                       margin-bottom: 15px">
+              Set Your Email And Password For Your Account Below
+            </h4>
+            {% csrf_token %}
+            <fieldset name="name">
+              <legend name>Name:</legend>
+              <input type="text" name="name" placeholder="Name" required />
+            </fieldset>
+
+            <fieldset name="email">
+              <legend name>Email:</legend>
+              <input type="email" name="email" placeholder="Email" required />
+            </fieldset>
+
+            <fieldset name="password1">
+              <legend name>Password:</legend>
+              <input type="password"
+                     name="password1"
+                     id="id_password"
+                     placeholder="Password"
+                     required />
+
+              <img src="{% static  'assets/eye-open.svg' %}" alt="eye-open" class="eye" />
+            </fieldset>
+            <fieldset name="password2">
+              <legend name>Confirm Password:</legend>
+              <input type="password"
+                     name="password2"
+                     id="id_password"
+                     placeholder="Password"
+                     required />
+
+              <img src="{% static  'assets/eye-open.svg' %}" alt="eye-open" class="eye" />
+            </fieldset>
+            <button style="color: white;
+                           background-color: #485AFF;
+                           border-color: #485AFF"
+                    id="sign-in"
+                    type="submit">Save</button>
+
+            {% if session_id %}
+              <input type="hidden" name="session_id" value="{{ session_id }}" />
+            {% endif %}
+          </form>
+        {% endif %}
+      </div>
+    </main>
+
+    <script>
+      function togglePasswordVisibility(e) {
+        const passwordInput = e.target.parentNode.children[1];
+        const eyeIcon = e.target;
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.src = "{% static 'assets/eye-off.svg' %}";
+          eyeIcon.alt = 'eye-off';
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.src = "{% static 'assets/eye-open.svg' %}";
+          eyeIcon.alt = 'eye-open';
+        }
+      }
+
+      document.querySelectorAll('.eye').forEach((eyeElement) => {
+        eyeElement.addEventListener('click', togglePasswordVisibility);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+.earning_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 57px;
+  padding: 80px 0;
+  border-bottom: 1px solid #00000080;
+}
+
+.earning_section .earning-title {
+  text-align: center;
+  font-size: 48px;
+  line-height: 60px;
+  font-weight: 700;
+  font-family: "Plus Jakarta Sans";
+  margin-bottom: 24px;
+}
+
+.earning_section .earning-paragraph {
+  max-width: 935px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 22.5px;
+  font-family: "Poppins";
+  font-weight: 400;
+  color: #525252;
+}
+
+.earning_section .cards-container {
+  display: flex;
+  gap: 28px;
+  margin: 48px 0;
+}
+
+.earning_section button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 62px;
+  font-size: 24px;
+  line-height: 30px;
+  font-family: "Plus Jakarta Sans";
+  font-weight: 600;
+  background-color: #485aff;
+  color: #ffffff;
+  border-radius: 200px;
+  padding: 16px 28px;
+}
+
+.earning-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 26px;
+  height: 296px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc4d;
+  box-shadow: 10px 10px 3px #0c0c0d1a;
+}
+
+.earning-card .number {
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 45px;
+  color: #3663ff;
+}
+
+.earning-card .title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  font-family: "Montserrat";
+  margin-top: 20px;
+  margin-bottom: 14px;
+  max-width: 344px;
+}
+
+.earning-card .text {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  font-family: "Montserrat";
+  max-width: 344px;
+  color: #111111b2;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .earning_section {
+    padding: 40px 16px;
+    margin: 0;
+  }
+
+  .earning_section .earning-title {
+    font-size: 28px;
+    line-height: 35px;
+  }
+
+  .earning_section .earning-paragraph {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .earning_section .cards-container {
+    flex-direction: column;
+  }
+}
